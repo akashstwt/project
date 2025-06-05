@@ -55,26 +55,24 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-[#070005] text-white py-4 md:py-12 px-4 md:px-24 ">
-      <div className="flex flex-col space-y-4">
+      <div className="flex flex-col space-y-5 gap-7">
         {/* Header */}
-        <div className="gradient-border mb-4">
-          <div className="content flex flex-col md:flex-row justify-between items-start md:items-center">
+          <div className="content mb-4 flex flex-col md:flex-row justify-between items-start md:items-center">
             <div>
-              <div className="text-xs text-gray-400">Games / Mines</div>
-              <h1 className="text-2xl font-bold">Crazy times</h1>
+              <div className="text-sm mb-4 text-gray-400">Games / Mines</div>
+              <h1 className="text-4xl ">Crazy times</h1>
             </div>
             <div className="gradient-border">
-            <div className="bg-[#1e0936] rounded-sm p-2 flex items-center mt-2 md:mt-0">
-              <span className="text-white">{balance.toFixed(10)}</span>
+            <div className="bg-[#1e0936] rounded-sm p-2 py-4 px-5 flex items-center mt-2 md:mt-0">
+              <span className="text-white text-lg">{balance.toFixed(10)}</span>
               <span className="ml-1 bg-blue-500 text-xs rounded-full h-5 w-5 flex items-center justify-center">$</span>
             </div>
             </div>
           </div>
-        </div>
 
 
         {/* Main Content */}
-        <div className="w-full flex flex-col md:flex-row gap-7">
+        <div className="w-full flex flex-col-reverse md:flex-row gap-7">
           {/* Betting Panel */}
           <div className="w-full md:w-[30%]">
           <BettingPanel 
@@ -93,7 +91,7 @@ export default function Home() {
           </div>
           
           {/* Game Wheel */}
-          <div className="w-full md:w-[70%] p-5 bg-[#290023] border border-[#333947] rounded-xl overflow-hidden">
+          <div className="w-full md:w-[70%] p-5 bg-[#290023] border border-[#333947] rounded-3xl overflow-hidden">
             <GameWheel 
               isSpinning={isSpinning}
               segments={segments}

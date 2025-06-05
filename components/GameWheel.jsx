@@ -123,7 +123,7 @@ const GameWheel = ({
 
   return (
     <div className="flex flex-col justify-between items-center h-full w-full">
-      <div className="relative flex h-[625px] w-[600px] items-center justify-center p-4">
+      <div className="relative flex h-[435px] w-[600px] md:h-[625px] md:w-[600px] items-center justify-center p-4">
 
         <Image
           src={arrow}
@@ -168,12 +168,13 @@ const GameWheel = ({
             <button
               key={multiplier}
               onClick={() => handleSelectMultiplier(multiplier)}
-              className={cn(
-                "flex flex-col justify-end items-center h-[60px] w-full rounded-md text-sm font-medium border bg-[#0A0009] border-[#333947] transition-all",
-                isSelected && "ring-2 ring-white"
-              )}
+              className=
+                "flex flex-col justify-end items-center h-[60px] w-full rounded-md text-sm font-medium border bg-[#0A0009] border-[#333947] transition-all"
+                style={isSelected ? { backgroundColor: bgColor } : {}}
             >
-              <span className="text-white pb-2">{multiplier.toFixed(2)}x</span>
+              <span className="text-white pb-2">
+                {multiplier.toFixed(2)}x
+              </span>
               <div
                 className="w-full h-3 rounded-b-md"
                 style={{ backgroundColor: bgColor }}
@@ -186,5 +187,6 @@ const GameWheel = ({
     </div>
   );
 };
+
 
 export default GameWheel;

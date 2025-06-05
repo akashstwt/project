@@ -8,91 +8,100 @@ const GameHistory = ({ gameHistory }) => {
   const [entriesShown, setEntriesShown] = useState(10);
   
   return (
-    <div className="bg-[#070005] rounded-xl overflow-hidden mt-4">
-      <div className="flex border-b border-purple-900/30">
-        <button
-          className={cn(
-            "py-2 px-4 text-sm transition-colors",
-            activeTab === "my-bet"
-              ? "border-b-2 border-pink-600 text-white"
-              : "text-gray-400 hover:text-gray-200"
-          )}
-          onClick={() => setActiveTab("my-bet")}
-        >
-          My Bet
-        </button>
-        <button
-          className={cn(
-            "py-2 px-4 text-sm transition-colors",
-            activeTab === "game-description"
-              ? "border-b-2 border-pink-600 text-white"
-              : "text-gray-400 hover:text-gray-200"
-          )}
-          onClick={() => setActiveTab("game-description")}
-        >
-          Game description
-        </button>
+    <div className="bg-[#070005] w-full rounded-xl overflow-hidden mt-0">
+      <div className="flex flex-row justify-between items-center">
+
+        <div className="flex mb-4 w-[70%] md:w-[30%] bg-[#120521] border border-[#333947] rounded-3xl p-2 gap-2 overflow-hidden">
+          <div className={cn("w-1/2", activeTab === "my-bet" && "gradient-borderb")}>
+            <button
+              className={cn(
+                "flex-1 py-0 md:py-3 px-4 w-full h-full text-center rounded-2xl transition-colors",
+                activeTab === "my-bet" ? "bg-[#290023] text-white" : "text-[#333947]"
+              )}
+              onClick={() => setActiveTab("my-bet")}
+            >
+              My Bet
+            </button>
+          </div>
+          <div className={cn("w-1/2", activeTab === "game-description" && "gradient-borderb")}>
+            <button
+              className={cn(
+                "flex-1 py-0 md:py-3 px-4 w-full h-full text-center rounded-2xl transition-colors",
+                activeTab === "game-description" ? "bg-[#290023] text-white" : "text-[#333947]"
+              )}
+              onClick={() => setActiveTab("game-description")}
+            >
+              Game Description
+            </button>
+          </div>
+        </div>
+
+        <div className="flex gradient-border mb-5 md:mb-0">
+          <div className="flex space-x-4">
+            <select 
+              className="bg-[#120521] text-white text-md p-3 px-2 md:px-6 rounded border border-purple-900/30"
+              value={entriesShown}
+              onChange={(e) => setEntriesShown(Number(e.target.value))}
+            >
+              <option value={10}>10</option>
+              <option value={20}>20</option>
+              <option value={50}>50</option>
+            </select>
+          </div>
+        </div>
+
       </div>
+
       
       {activeTab === "my-bet" && (
-        <div>
-          <div className="flex justify-between items-center p-4">
-            <span className="font-medium">Game</span>
-            <div className="flex items-center space-x-2">
-              <select 
-                className="bg-[#120521] text-white text-sm p-1 rounded border border-purple-900/30"
-                value={entriesShown}
-                onChange={(e) => setEntriesShown(Number(e.target.value))}
-              >
-                <option value={10}>10</option>
-                <option value={20}>20</option>
-                <option value={50}>50</option>
-              </select>
-            </div>
-          </div>
-          
-          <div className="overflow-x-auto">
-            <table className="w-full text-sm">
-              <thead className="bg-[#120521] text-left">
-                <tr>
-                  <th className="py-2 px-4 font-medium">Game</th>
-                  <th className="py-2 px-4 font-medium">Time</th>
-                  <th className="py-2 px-4 font-medium">Bet amount</th>
-                  <th className="py-2 px-4 font-medium">Multiplier</th>
-                  <th className="py-2 px-4 font-medium">Payout</th>
-                </tr>
-              </thead>
-              <tbody>
-                {gameHistory.length > 0 ? (
-                  gameHistory.slice(0, entriesShown).map((item) => (
-                    <tr key={item.id} className="border-t border-purple-900/20 hover:bg-purple-900/10">
-                      <td className="py-3 px-4">{item.game}</td>
-                      <td className="py-3 px-4">{item.time}</td>
-                      <td className="py-3 px-4">
-                        <span className="flex items-center">
-                          {item.betAmount.toFixed(10)}
-                          <span className="ml-1 bg-blue-500 text-xs rounded-full h-4 w-4 flex items-center justify-center">$</span>
+        <div className="overflow-x-auto">
+          <table className="w-full mt-4 text-md">
+            <thead className=" text-left">
+              <tr>
+                <th className="py-2 px-4 font-medium">Game</th>
+                <th className="py-2 px-4 font-medium">Time</th>
+                <th className="py-2 px-4 font-medium">Bet amount</th>
+                <th className="py-2 px-4 font-medium">Multiplier</th>
+                <th className="py-2 px-4 font-medium">Payout</th>
+              </tr>
+            </thead>
+            <tbody>
+              {gameHistory.length > 0 ? (
+                gameHistory.slice(0, entriesShown).map((item, index) => (
+                  <tr
+                    key={item.id}
+                    className={index % 2 === 0 ? "bg-purple-900/10" : ""}
+                  >
+                    <td className="py-3 px-4">{item.game}</td>
+                    <td className="py-3 px-4">{item.time}</td>
+                    <td className="py-3 px-4">
+                      <span className="flex items-center">
+                        {item.betAmount.toFixed(10)}
+                        <span className="ml-1 bg-blue-500 text-xs rounded-full h-4 w-4 flex items-center justify-center">
+                          $
                         </span>
-                      </td>
-                      <td className="py-3 px-4">{item.multiplier}</td>
-                      <td className="py-3 px-4">
-                        <span className="flex items-center">
-                          {item.payout.toFixed(10)}
-                          <span className="ml-1 bg-blue-500 text-xs rounded-full h-4 w-4 flex items-center justify-center">$</span>
+                      </span>
+                    </td>
+                    <td className="py-3 px-4">{item.multiplier}</td>
+                    <td className="py-3 px-4">
+                      <span className="flex items-center">
+                        {item.payout.toFixed(10)}
+                        <span className="ml-1 bg-blue-500 text-xs rounded-full h-4 w-4 flex items-center justify-center">
+                          $
                         </span>
-                      </td>
-                    </tr>
-                  ))
-                ) : (
-                  <tr>
-                    <td colSpan={5} className="py-8 text-center text-gray-400">
-                      No game history yet. Place your first bet!
+                      </span>
                     </td>
                   </tr>
-                )}
-              </tbody>
-            </table>
-          </div>
+                ))
+              ) : (
+                <tr>
+                  <td colSpan={5} className="py-8 text-center text-gray-400">
+                    No game history yet. Place your first bet!
+                  </td>
+                </tr>
+              )}
+            </tbody>
+          </table>
         </div>
       )}
       
@@ -110,7 +119,7 @@ const GameHistory = ({ gameHistory }) => {
             <li>Enter your bet amount</li>
             <li>Select your risk level (Low, Medium, High)</li>
             <li>Choose the number of segments for the wheel</li>
-            <li>Click the "Bet" button to spin the wheel</li>
+            <li>Click the &quot;Bet&quot; button to spin the wheel</li>
             <li>If the wheel lands on a multiplier, your bet amount will be multiplied accordingly</li>
           </ol>
         </div>
