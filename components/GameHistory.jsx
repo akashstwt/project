@@ -70,7 +70,7 @@ const GameHistory = ({ gameHistory }) => {
                 gameHistory.slice(0, entriesShown).map((item, index) => (
                   <tr
                     key={item.id}
-                    className={index % 2 === 0 ? "bg-purple-900/10" : ""}
+                    className={index % 2 === 0 ? "bg-[#290023]" : ""}
                   >
                     <td className="py-3 px-4">{item.game}</td>
                     <td className="py-3 px-4">{item.time}</td>
