@@ -251,11 +251,10 @@ const BettingPanel = ({
       )}
 
       {/* Start AutoBet Button */}
-      <div className="mt-auto">
       <button
         onClick={placeBet}
         disabled={isSpinning || betAmount <= 0 || betAmount > balance}
-        className={`py-3 mt-4 rounded-lg text-center font-semibold transition-all bottom-0 w-full ${
+        className={`py-3 mt-4 rounded-lg text-center font-semibold transition-all w-full ${
           isSpinning || betAmount <= 0 || betAmount > balance
             ? "bg-gray-700 text-gray-500 cursor-not-allowed"
             : "bg-gradient-to-r from-[#F1324D] to-[#2414E3] text-white hover:from-[#e82f49] hover:to-[#2112e1]"
@@ -264,7 +263,6 @@ const BettingPanel = ({
         Start Autobet
       </button>
       </div>
-    </div>
   );
 };
 

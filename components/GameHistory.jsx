@@ -65,7 +65,7 @@ const GameHistory = ({ gameHistory }) => {
                 <th className="py-2 px-4 font-medium">Payout</th>
               </tr>
             </thead>
-            <tbody>
+            <tbody className="">
               {gameHistory.length > 0 ? (
                 gameHistory.slice(0, entriesShown).map((item, index) => (
                   <tr
