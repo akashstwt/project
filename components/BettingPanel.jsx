@@ -253,7 +253,7 @@ const BettingPanel = ({
       {/* Start AutoBet Button */}
       <div className="mt-auto">
       <button
-        onClick={handleAutoBetStart}
+        onClick={placeBet}
         disabled={isSpinning || betAmount <= 0 || betAmount > balance}
         className={`py-3 mt-4 rounded-lg text-center font-semibold transition-all bottom-0 w-full ${
           isSpinning || betAmount <= 0 || betAmount > balance
