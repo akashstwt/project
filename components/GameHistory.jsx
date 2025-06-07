@@ -2,6 +2,8 @@
 
 import { useState } from "react";
 import { cn } from "@/lib/utils";
+import Image from "next/image";
+import coin from "../public/coin.png";
 
 const GameHistory = ({ gameHistory }) => {
   const [activeTab, setActiveTab] = useState("my-bet");
@@ -58,37 +60,45 @@ const GameHistory = ({ gameHistory }) => {
           <table className="w-full mt-4 text-md">
             <thead className=" text-left">
               <tr>
-                <th className="py-2 px-4 font-medium">Game</th>
-                <th className="py-2 px-4 font-medium">Time</th>
-                <th className="py-2 px-4 font-medium">Bet amount</th>
-                <th className="py-2 px-4 font-medium">Multiplier</th>
-                <th className="py-2 px-4 font-medium">Payout</th>
+                <th className="py-6 px-4 font-medium">Game</th>
+                <th className="py-6 px-4 font-medium">Time</th>
+                <th className="py-6 px-4 font-medium">Bet amount</th>
+                <th className="py-6 px-4 font-medium">Multiplier</th>
+                <th className="py-6 px-4 font-medium">Payout</th>
               </tr>
             </thead>
-            <tbody className="">
+            <tbody>
               {gameHistory.length > 0 ? (
                 gameHistory.slice(0, entriesShown).map((item, index) => (
                   <tr
                     key={item.id}
                     className={index % 2 === 0 ? "bg-[#290023]" : ""}
                   >
-                    <td className="py-3 px-4">{item.game}</td>
-                    <td className="py-3 px-4">{item.time}</td>
-                    <td className="py-3 px-4">
+                    <td className="py-6 px-4">{item.game}</td>
+                    <td className="py-6 px-4">{item.time}</td>
+                    <td className="py-6 px-4">
                       <span className="flex items-center">
                         {item.betAmount.toFixed(10)}
-                        <span className="ml-1 bg-blue-500 text-xs rounded-full h-4 w-4 flex items-center justify-center">
-                          $
-                        </span>
+                        <Image
+                          src={coin}
+                          width={20}
+                          height={20}
+                          alt="coin"
+                          className=""
+                        />  
                       </span>
                     </td>
-                    <td className="py-3 px-4">{item.multiplier}</td>
-                    <td className="py-3 px-4">
+                    <td className="py-6 px-4">{item.multiplier}</td>
+                    <td className="py-6 px-4">
                       <span className="flex items-center">
                         {item.payout.toFixed(10)}
-                        <span className="ml-1 bg-blue-500 text-xs rounded-full h-4 w-4 flex items-center justify-center">
-                          $
-                        </span>
+                        <Image
+                          src={coin}
+                          width={20}
+                          height={20}
+                          alt="coin"
+                          className=""
+                        />  
                       </span>
                     </td>
                   </tr>

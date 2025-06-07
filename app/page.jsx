@@ -5,6 +5,9 @@ import GameWheel from "@/components/GameWheel";
 import BettingPanel from "@/components/BettingPanel";
 import GameHistory from "@/components/GameHistory";
 import { calculateResult } from "@/lib/gameLogic";
+import Image from "next/image";
+import coin from "../public/coin.png";
+
 
 export default function Home() {
   const [balance, setBalance] = useState(1000);
@@ -63,10 +66,16 @@ export default function Home() {
               <h1 className="text-4xl ">Crazy times</h1>
             </div>
             <div className="gradient-border">
-            <div className="bg-[#1e0936] rounded-sm p-2 py-4 px-5 flex items-center mt-2 md:mt-0">
-              <span className="text-white text-lg">{balance.toFixed(10)}</span>
-              <span className="ml-1 bg-blue-500 text-xs rounded-full h-5 w-5 flex items-center justify-center">$</span>
-            </div>
+              <div className="bg-[#1e0936] rounded-sm p-2 py-4 px-5 flex items-center gap-2 mt-2 md:mt-0">
+                <span className="text-white text-lg">{balance.toFixed(10)}</span>
+                <Image
+                  src={coin}
+                  width={20}
+                  height={20}
+                  alt="coin"
+                  className=""
+                />                 
+              </div>
             </div>
           </div>
 
@@ -74,7 +83,7 @@ export default function Home() {
         {/* Main Content */}
         <div className="w-full flex flex-col-reverse md:flex-row gap-7">
           {/* Betting Panel */}
-          <div className="w-full md:w-[30%]">
+          <div className="w-full md:w-[40%] lg:w-[30%]">
           <BettingPanel 
             betAmount={betAmount}
             setBetAmount={setBetAmount}
@@ -91,8 +100,9 @@ export default function Home() {
           </div>
           
           {/* Game Wheel */}
-          <div className="w-full md:w-[70%] p-5 bg-[#290023] border border-[#333947] rounded-3xl overflow-hidden">
-            <GameWheel 
+          <div className="w-full md:w-[60%] lg:w-[70%] p-5 bg-[#290023] border border-[#333947] rounded-3xl overflow-hidden">
+            <GameWheel
+              risk={risk} 
               isSpinning={isSpinning}
               segments={segments}
               currentMultiplier={currentMultiplier}

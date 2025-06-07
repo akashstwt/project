@@ -6,28 +6,59 @@ import { cn } from "@/lib/utils";
 import arrow from "../public/arrow.svg";
 
 const GameWheel = ({
-  isSpinning,
   segments,
+  isSpinning,
   currentMultiplier,
   targetMultiplier,
   handleSelectMultiplier,
   wheelPosition,
-  setWheelPosition
+  setWheelPosition,
+
+  risk = "medium",
 }) => {
   const canvasRef = useRef(null);
   
   // Multiplier options
-  const multipliers = [0.00, 1.50, 1.70, 2.00, 3.00, 4.00];
+  const multipliers1 = [2.00, 3.00, 4.00];
+  const multipliers2 = [0.00, 1.50, 1.70, 2.00, 3.00, 4.00];
+  const multipliers3 = [3.00, 4.00];
+
+  const multipliers =
+    risk === "low"
+      ? multipliers1
+      : risk === "medium"
+      ? multipliers2
+      : multipliers3;
   
   // Colors for wheel segments
-  const segmentColors = [
-    "#333947", // green
-    "#00E403", // yellow
-    "#D9D9D9", // gray
-    "#FDE905", // orange
-    "#7F46FD", // purple
-    "#FCA32F", // white
+
+  const segmentColors1 = [
+    "#333947", 
+    "#D9D9D9", 
+    "#00E403", 
   ];
+
+  const segmentColors2 = [
+    "#333947",
+    "#00E403", 
+    "#D9D9D9", 
+    "#FDE905", 
+    "#7F46FD", 
+    "#FCA32F", 
+  ];
+
+  const segmentColors3 = [
+    "#333947", 
+    "#D72E60", 
+  ];
+
+  const segmentColors =
+    risk === "low"
+    ? segmentColors1
+    : risk === "medium"
+    ? segmentColors2
+    : segmentColors3;
+
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -84,7 +115,7 @@ const GameWheel = ({
     // Restore the context to draw the pointer without rotation
     ctx.restore();
     
-  }, [segments, wheelPosition]);
+  }, [segmentColors, segments, wheelPosition]);
 
   // Render wheel rotation animation
   useEffect(() => {
@@ -123,7 +154,7 @@ const GameWheel = ({
 
   return (
     <div className="flex flex-col justify-between items-center h-full w-full">
-      <div className="relative flex h-[435px] w-[600px] md:h-[625px] md:w-[600px] items-center justify-center p-4">
+      <div className="relative flex h-[435px] w-[600px] sm:h-[525px] sm:w-[500px] lg:h-[625px] lg:w-[600px] items-center justify-center p-4">
 
         <Image
           src={arrow}
@@ -151,18 +182,39 @@ const GameWheel = ({
       
       <div className="flex w-full gap-3 p-2">
         {multipliers.map((multiplier) => {
+
           const isSelected = targetMultiplier === multiplier;
 
-          const colorMap = {
-            0.0: "#333947",
-            1.5: "#00E403",
-            1.7: "#D9D9D9",
-            2.0: "#FDE905",
-            3.0: "#7F46FD",
-            4.0: "#FCA32F",
+          const colorMapEasy = {
+            2.00: "#333947",
+            3.00: "#D9D9D9",
+            4.00: "#00E403",
           };
 
-          const bgColor = colorMap[multiplier] || "#333947";
+          const colorMapMedium = {
+            0.00: "#333947",
+            1.50: "#00E403",
+            1.70: "#D9D9D9",
+            2.00: "#FDE905",
+            3.00: "#7F46FD",
+            4.00: "#FCA32F",
+          };
+
+          const colorMapHard = {
+            3.00: "#333947",
+            4.00: "#D72E60",
+          };
+
+          const bgColorEasy = colorMapEasy[multiplier] || "#333947";
+          const bgColorMedium = colorMapMedium[multiplier] || "#333947";
+          const bgColorHard = colorMapHard[multiplier] || "#333947";
+
+          const bgColor =
+            risk === "low"
+            ? bgColorEasy
+            : risk === "medium"
+            ? bgColorMedium
+            : bgColorHard;
 
           return (
             <button

@@ -2,6 +2,8 @@
 
 import { useState } from "react";
 import { cn } from "@/lib/utils";
+import Image from "next/image";
+import coin from "../public/coin.png";
 
 const BettingPanel = ({
   betAmount,
@@ -127,7 +129,13 @@ const BettingPanel = ({
               className="bg-transparent border-none outline-none w-full text-white p-1"
               placeholder="0.00000000000"
             />
-            <span className="bg-blue-500 text-xs rounded-full h-5 w-5 flex items-center justify-center">$</span>
+            <Image
+                  src={coin}
+                  width={20}
+                  height={20}
+                  alt="coin"
+                  className=""
+            />  
           </div>
         </div>
         <div className="flex w-[40%]">
@@ -159,10 +167,10 @@ const BettingPanel = ({
         <label className="block text-sm text-white mb-1">Segments</label>
         <div className="relative gradient-border">
           <select value={segments} onChange={(e) => setSegments(parseInt(e.target.value))} className="w-full bg-[#120521] p-2 py-3 rounded-sm appearance-none text-white pr-8 outline-none">
-            <option value="3">3</option>
+            <option value="6">6</option>
             <option value="12">12</option>
             <option value="24">24</option>
-            <option value="30">30</option>
+            <option value="48">48</option>
           </select>
           <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
             <svg className="h-5 w-5 text-gray-400" viewBox="0 0 20 20" fill="currentColor">
@@ -232,7 +240,13 @@ const BettingPanel = ({
             <div className="gradient-border">
             <div className="flex items-center bg-[#120521] p-2 py-3 rounded-sm">
               <input type="number" className="bg-transparent outline-none border-none text-white w-full" value={stopProfit} onChange={(e) => setStopProfit(e.target.value)} />
-              <span className="ml-2 bg-blue-500 text-xs rounded-full h-5 w-5 flex items-center justify-center">$</span>
+              <Image
+                  src={coin}
+                  width={20}
+                  height={20}
+                  alt="coin"
+                  className=""
+                />  
             </div>
             </div>
           </div>
@@ -243,7 +257,13 @@ const BettingPanel = ({
             <div className="gradient-border">
             <div className="flex items-center bg-[#120521] p-2 py-3 rounded-sm">
               <input type="number" className="bg-transparent outline-none border-none text-white w-full" value={stopLoss} onChange={(e) => setStopLoss(e.target.value)} />
-              <span className="ml-2 bg-blue-500 text-xs rounded-full h-5 w-5 flex items-center justify-center">$</span>
+              <Image
+                  src={coin}
+                  width={20}
+                  height={20}
+                  alt="coin"
+                  className=""
+                />  
             </div>
             </div>
           </div>
@@ -252,7 +272,7 @@ const BettingPanel = ({
 
       {/* Start AutoBet Button */}
       <button
-        onClick={placeBet}
+        onClick={gameMode === "auto" ? placeBet : placeBet}
         disabled={isSpinning || betAmount <= 0 || betAmount > balance}
         className={`py-3 mt-4 rounded-lg text-center font-semibold transition-all w-full ${
           isSpinning || betAmount <= 0 || betAmount > balance
@@ -260,7 +280,7 @@ const BettingPanel = ({
             : "bg-gradient-to-r from-[#F1324D] to-[#2414E3] text-white hover:from-[#e82f49] hover:to-[#2112e1]"
         }`}
       >
-        Start Autobet
+        {gameMode === "auto" ? "Start Autobet" : "Start Bet"}
       </button>
       </div>
   );
